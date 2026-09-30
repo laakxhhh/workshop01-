@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Tech Hub - Learn, Build & Connect</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+            <path d="m9 9 3 3-3 3"></path>
+            <path d="M13 15h3"></path>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">Student Tech Hub</span>
+          <span class="brand-tag">Campus &amp; Beyond</span>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#events">Upcoming Events</a>
+        <a href="#register">Register</a>
+        <a href="http://127.0.0.1:8000/docs" target="_blank" rel="noopener" class="api-link" title="Open FastAPI Swagger Documentation">
+          API Docs &nearr;
+        </a>
+      </nav>
+
+      <!-- Backend Connection Status Pill -->
+      <div class="status-indicator" id="backend-status" title="Checking backend connection...">
+        <span class="status-dot status-unknown"></span>
+        <span class="status-label" id="backend-status-text">Checking Backend...</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-container">
+      <div class="hero-badge">🚀 Empowering the Next Generation of Tech Leaders</div>
+      <h1 class="hero-title">Student Tech Hub</h1>
+      <p class="hero-subtitle">
+        Your one-stop community for hands-on technical workshops, competitive hackathons, 
+        and real-world software engineering events. Level up your coding journey today!
+      </p>
+
+      <div class="hero-actions">
+        <button id="btn-hero-load" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+            <path d="M3 3v5h5"></path>
+            <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path>
+            <path d="M16 21h5v-5"></path>
+          </svg>
+          Load Events from Backend
+        </button>
+        <a href="#register" class="btn btn-secondary">
+          Register for an Event
+        </a>
+      </div>
+
+      <!-- Quick Metrics Strip -->
+      <div class="stats-strip">
+        <div class="stat-item">
+          <span class="stat-number">6+</span>
+          <span class="stat-name">Active Workshops</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">100%</span>
+          <span class="stat-name">Free for Students</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">FastAPI</span>
+          <span class="stat-name">Powered Backend</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Layout -->
+  <main class="container main-content">
+
+    <!-- Events Section -->
+    <section id="events" class="events-section">
+      <div class="section-header">
+        <div>
+          <span class="section-eyebrow">Explore Calendar</span>
+          <h2 class="section-title">Upcoming Technical Events</h2>
+          <p class="section-desc">Connect with mentors, learn industry stacks, and collaborate with fellow students.</p>
+        </div>
+        
+        <div class="events-toolbar">
+          <div class="search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="event-search-input" placeholder="Search events or topics...">
+          </div>
+
+          <button id="btn-load-events" class="btn btn-outline" title="Fetch latest events from backend GET /api/events">
+            <svg class="spin-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+              <path d="M3 3v5h5"></path>
+              <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path>
+              <path d="M16 21h5v-5"></path>
+            </svg>
+            <span>Refresh Events</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Events Notification / Status Banner -->
+      <div id="events-notification" class="notification-banner" style="display: none;"></div>
+
+      <!-- Events Cards Grid -->
+      <div id="events-grid" class="events-grid">
+        <!-- Initial skeleton or placeholder loaded by JS -->
+      </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="register" class="register-section">
+      <div class="register-card">
+        <div class="register-header">
+          <div class="badge-pill">Quick &amp; Easy</div>
+          <h2>Student Event Registration</h2>
+          <p>Reserve your seat in any workshop or join the Student Tech Hub community newsletter.</p>
+        </div>
+
+        <!-- Registration Form -->
+        <form id="registration-form" class="registration-form" novalidate>
+          <div class="form-group">
+            <label for="student-name">
+              Full Name <span class="required">*</span>
+            </label>
+            <div class="input-wrapper">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <input 
+                type="text" 
+                id="student-name" 
+                name="name" 
+                placeholder="e.g. Alex Morgan" 
+                required 
+                minlength="2"
+                autocomplete="name"
+              >
+            </div>
+            <span class="field-error" id="name-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="student-email">
+              Email Address <span class="required">*</span>
+            </label>
+            <div class="input-wrapper">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+              <input 
+                type="email" 
+                id="student-email" 
+                name="email" 
+                placeholder="e.g. alex.morgan@university.edu" 
+                required
+                autocomplete="email"
+              >
+            </div>
+            <span class="field-error" id="email-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="event-select">
+              Select Event (Optional)
+            </label>
+            <div class="input-wrapper">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              <select id="event-select" name="event_title">
+                <option value="General Tech Hub Membership">General Tech Hub Membership</option>
+                <!-- Populated dynamically when events load -->
+              </select>
+            </div>
+            <span class="field-hint">You can also click "Register for this Event" on any card above to auto-fill.</span>
+          </div>
+
+          <button type="submit" id="btn-submit-registration" class="btn btn-primary btn-block">
+            <span class="btn-text">Complete Registration</span>
+            <svg class="btn-spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display: none;">
+              <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+              <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"></path>
+            </svg>
+          </button>
+        </form>
+
+        <!-- Response Alert Box -->
+        <div id="form-alert" class="alert-box" style="display: none;"></div>
+
+        <!-- Session Registrations List -->
+        <div id="session-registrations" class="recent-registrations" style="display: none;">
+          <h4>Your Confirmed Registrations</h4>
+          <ul id="confirmed-list"></ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modern Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-info">
+        <h3>Student Tech Hub</h3>
+        <p>Built with plain HTML, modern CSS, vanilla JavaScript &amp; Python FastAPI.</p>
+      </div>
+      <div class="footer-meta">
+        <p>Backend API running at <a href="http://127.0.0.1:8000" target="_blank" rel="noopener">http://127.0.0.1:8000</a></p>
+        <p class="copyright">&copy; 2026 Student Tech Hub &bull; Open Source for Students</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
